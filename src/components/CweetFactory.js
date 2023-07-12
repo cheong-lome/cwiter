@@ -9,14 +9,14 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const NweetFactory = ({ userObj }) => {
-    const [nweet, setNweet] = useState("");
+const CweetFactory = ({ userObj }) => {
+    const [cweet, setCweet] = useState("");
     const [attachment, setAttachment] = useState("");
 
 
 
     const onSubmit = async (event) => {
-        if (nweet === "") {
+        if (cweet === "") {
             return;
         }
         event.preventDefault();
@@ -26,14 +26,14 @@ const NweetFactory = ({ userObj }) => {
             await uploadString(fileRef, attachment, "data_url");
             attachmentUrl = await getDownloadURL(fileRef);
         }
-        const nweetObj = {
-            text: nweet,
+        const cweetObj = {
+            text: cweet,
             createdAt: Date.now(),
             creatorId: userObj.uid,
             attachmentUrl,
         };
-        await addDoc(collection(dbService, "nweets"), nweetObj);
-        setNweet("");
+        await addDoc(collection(dbService, "cweets"), cweetObj);
+        setCweet("");
         setAttachment("");
     };
 
@@ -41,7 +41,7 @@ const NweetFactory = ({ userObj }) => {
         const {
             target: { value },
         } = event;
-        setNweet(value);
+        setCweet(value);
     };
 
     const onFileChange = (event) => {
@@ -66,7 +66,7 @@ const NweetFactory = ({ userObj }) => {
             <div className="factoryInput__container">
                 <input
                     className="factoryInput__input"
-                    value={nweet}
+                    value={cweet}
                     onChange={onChange}
                     type="text"
                     placeholder="What's on your mind?"
@@ -105,4 +105,4 @@ const NweetFactory = ({ userObj }) => {
     )
 }
 
-export default NweetFactory;
+export default CweetFactory;

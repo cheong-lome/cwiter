@@ -7,35 +7,35 @@ import {
     orderBy,
 
 } from "firebase/firestore";
-import Nweet from "components/Nweet";
-import NweetFactory from "components/NweetFactory"
+import Cweet from "components/Cweet";
+import CweetFactory from "components/CweetFactory"
 
 const Home = ({ userObj }) => {
-    const [nweets, setNweets] = useState([]);
+    const [cweets, setCweets] = useState([]);
 
     useEffect(() => {
         const q = query(
-            collection(dbService, "nweets"),
+            collection(dbService, "cweets"),
             orderBy("createdAt", "desc")
         );
         onSnapshot(q, (snapshot) => {
-            const nweetArr = snapshot.docs.map((doc) => ({
+            const cweetArr = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
             }));
-            setNweets(nweetArr);
+            setCweets(cweetArr);
         });
     }, []);
 
     return (
         <div className="container">
-            <NweetFactory userObj={userObj} />
+            <CweetFactory userObj={userObj} />
             <div style={{ marginTop: 30 }}>
-                {nweets.map((nweet) => (
-                    <Nweet
-                        key={nweet.id}
-                        nweetObj={nweet}
-                        isOwner={nweet.creatorId === userObj.uid}
+                {cweets.map((cweet) => (
+                    <Cweet
+                        key={cweet.id}
+                        cweetObj={cweet}
+                        isOwner={cweet.creatorId === userObj.uid}
                     />
                 ))}
             </div>

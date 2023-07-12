@@ -28,9 +28,9 @@ const Profile = ({ refreshUser, userObj }) => {
         refreshUser();
     };
 
-    const getMyNweets = async () => {
+    const getMyCweets = async () => {
         const q = query(
-            collection(dbService, "nweets"),
+            collection(dbService, "cweets"),
             where("creatorId", "==", userObj.uid)
         );
         const querySnapshot = await getDocs(q);
@@ -40,7 +40,7 @@ const Profile = ({ refreshUser, userObj }) => {
     };
 
     useEffect(() => {
-        getMyNweets();
+        getMyCweets();
     }, []);
 
     return (
